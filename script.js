@@ -12,6 +12,33 @@
 
 let name = document.getElementById("name");
 let backgroundColor = document.getElementById("background-color");
-let foregroundColor = document.getElementById("forground-color");
+let foregroundColor = document.getElementById("foreground-color");
 let form = document.getElementById("preferences-form");
+let body = document.querySelector("body");
 
+let savedBGC = localStorage.getItem("savedBGC");
+let savedFGC = localStorage.getItem("savedFGC");
+
+function applyPreferences() {
+  if (savedBGC != null) {
+    body.style.backgroundColor = savedBGC;
+  }
+  if (savedFGC != null) {
+    body.style.color = savedFGC;
+  }
+}
+
+function submitPreferences(event) {
+  event.preventDefault();
+    let savedName = name.value;
+  let savedBackgroundColor = backgroundColor.value;
+  let savedForegroundColor = foregroundColor.value;
+
+  body.style.backgroundColor = savedBackgroundColor;
+  body.style.color = savedForegroundColor;
+  localStorage.setItem("savedBGC", savedBackgroundColor);
+  localStorage.setItem("savedFGC", savedForegroundColor);
+  alert("Hello " + savedName + ", your preferences were saved!");
+}
+applyPreferences();
+form.addEventListener("submit", submitPreferences);
